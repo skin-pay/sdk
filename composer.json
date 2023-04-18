@@ -1,0 +1,22 @@
+{
+    "name": "skinpay/sdk",
+    "type": "library",
+    "license": "MIT",
+    "description": "Skinpay sdk.",
+    "keywords": [
+        "skinpay",
+        "sdk",
+        "api"
+    ],
+    "require": {
+        "php": ">=8.0",
+        "ext-openssl": "*",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": ">=6.5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Skinpay\\": "src/"
+        }
+    }
+}
