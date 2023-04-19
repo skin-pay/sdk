@@ -3,7 +3,6 @@
 namespace Skinpay\Request;
 /**
  * Class Request
- * @package tm\Request
  */
 final class Request implements RequestInterface{
     public function __construct(public string $action, public array $data = [], public string $method = 'GET') {

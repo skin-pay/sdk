@@ -72,7 +72,7 @@ class API {
      * @throws RequestException
      * @throws \JsonException
      */
-    public function getOrderStatus(int $orderid): OrderStatus|array
+    public function getOrderStatus(int $orderid): OrderStatus
     {
         $request = new Request('getOrderStatus', [
             'orderid' => $orderid
