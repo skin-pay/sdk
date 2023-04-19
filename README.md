@@ -10,11 +10,11 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```sh
-composer require skinpay/skinpay-sdk
+composer require skinpay/sdk
 ```
 
 Or add
 
 ```
-"skinpay/skinpay-sdk": "*"
+"skinpay/sdk": "*"
 ```
