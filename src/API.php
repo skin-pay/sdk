@@ -30,6 +30,8 @@ class API {
 
 
     /**
+     * make deposit url
+     *
      * @param int $orderid
      * @param int|null $steamid64
      * @param string|null $t_token
@@ -44,8 +46,10 @@ class API {
         $data = [
             'key' => $this->publicKey,
             'orderid' => $orderid,
-            'userid' => $steamid64
         ];
+        if ($steamid64) {
+            $data['userid'] = $steamid64;
+        }
         if ($t_token) {
             $data['t_token'] = $t_token;
         }
@@ -67,6 +71,8 @@ class API {
     }
 
     /**
+     * Get orders status
+     *
      * @param int $orderid
      * @return OrderStatus
      * @throws RequestException
@@ -94,6 +100,8 @@ class API {
     }
 
     /**
+     * Get success orders
+     *
      * @param int $tsFrom
      * @param int $tsTo
      * @return GetOrders
@@ -152,6 +160,61 @@ class API {
                 name: $row['name']
             );
         }, $res);
+    }
+
+    /**
+     * @throws RequestException
+     * @throws \JsonException
+     */
+    public function purchaseItem(int $id, int $customId, float $price, int $sendToSteamid64, string $token):array
+    {
+        $request = new Request('purchaseItem', [
+            'item_id' => $id,
+            'custom_id' => $customId,
+            'price' => $price,
+            'sendToSteamid64' => $sendToSteamid64,
+            'token' => $token
+        ], 'POST');
+        return $this->sendResolver->resolve()->send($request);
+    }
+
+    /**
+     * @throws RequestException
+     * @throws \JsonException
+     */
+    public function purchaseStatus(int $customId):array
+    {
+        $request = new Request('purchaseStatus', [
+            'custom_id' => $customId,
+        ], 'POST');
+        return $this->sendResolver->resolve()->send($request);
+    }
+
+    /**
+     * @throws RequestException
+     * @throws \JsonException
+     */
+    public function purchaseHistory(int $tsStart, int $tsEnd, $fromId=0):array
+    {
+        $request = new Request('purchaseHistory', [
+            'ts_start' => $tsStart,
+            'ts_end' => $tsEnd,
+            'from' => $fromId
+        ], 'POST');
+        return $this->sendResolver->resolve()->send($request);
+    }
+
+    /**
+     * @throws RequestException
+     * @throws \JsonException
+     */
+    public function searchItems(int $appid, array $conditions = []):array
+    {
+        $request = new Request('searchItems', [
+            'appid' => $appid,
+            'conditions' => json_encode($conditions, JSON_THROW_ON_ERROR)
+        ], 'POST');
+        return $this->sendResolver->resolve()->send($request);
     }
 
 }
